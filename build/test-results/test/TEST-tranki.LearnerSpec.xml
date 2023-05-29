@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="tranki.LearnerSpec" tests="1" skipped="0" failures="1" errors="0" timestamp="2023-05-29T16:37:48" hostname="lauty-aer" time="0.129">
+  <properties/>
+  <testcase name="learner can create deck when decks amount is less than max allowed" classname="tranki.LearnerSpec" time="0.129">
+    <failure message="groovy.lang.MissingMethodException: No signature of method: tranki.Learner.createDeck() is applicable for argument types: (LinkedHashMap) values: [[name:Mazo1]]&#10;Possible solutions: createDeck(java.lang.String), create()" type="groovy.lang.MissingMethodException">groovy.lang.MissingMethodException: No signature of method: tranki.Learner.createDeck() is applicable for argument types: (LinkedHashMap) values: [[name:Mazo1]]
+Possible solutions: createDeck(java.lang.String), create()
+	at tranki.LearnerSpec.learner can create deck when decks amount is less than max allowed(LearnerSpec.groovy:20)
+</failure>
+  </testcase>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
