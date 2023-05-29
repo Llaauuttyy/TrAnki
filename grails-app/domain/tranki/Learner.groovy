@@ -12,17 +12,19 @@ class Learner {
 
     Deck createDeck(String name) {
         if (decks.size() < MAX_DECKS) {
-            Deck newDeck = new Deck(name, [])
+            Deck newDeck = new Deck(name: name, cards: [])
             addDeck(newDeck)
+    
+            newDeck
         }
         // else {
-        //     // no se puede crear el mazo.
+            // no se puede crear el mazo.
+            // tirar error
         // }
     }
 
     Card createCard(String front, String back, Deck deck) {
-        // cards at first are set to NORMAL difficulty.
-        Card newCard = new Card(front, back, 5, Difficulty.NORMAL)
+        Card newCard = new Card(front, back)
         deck.addCard(newCard)
         newCard
     }

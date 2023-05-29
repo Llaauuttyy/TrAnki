@@ -16,10 +16,22 @@ class LearnerSpec extends Specification implements DomainUnitTest<Learner> {
         Learner learner = new Learner(name: "Juan", decks: [])
 
         when:"learner tries to create a new deck"
-        Deck deck = learner.createDeck(name: "Mazo1")
+        Deck deck = learner.createDeck("Mazo1")
 
         then:"new deck is created empty to be used"
-        deck.isEmpty() == true
+        deck.isEmpty()
 
+    }
+
+    void "learner can create a card when having at least a deck created"() {
+        given:"decks amount is at least one"
+        Learner learner = new Learner(name: "Rober", decks: [])
+        Deck deck = learner.createDeck("Mazo1")
+
+        when:"learner tries to create a new card"
+        Card newCard = learner.createCard("Hello", "Hola", deck)
+
+        then:"new card is created and deck is not empty"
+        newCard && !deck.isEmpty()
     }
 }

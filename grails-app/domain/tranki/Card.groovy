@@ -7,6 +7,8 @@ class Card {
     int points
     Difficulty difficulty
 
+    def difficultyPoints = [20, 15, 10]
+
     enum Difficulty {
         EASY,
         NORMAL,
@@ -14,5 +16,14 @@ class Card {
     }
 
     static constraints = {
+    }
+
+    Card(String front, String back) {
+        // cards at first are set to NORMAL difficulty.
+
+        this.front = front
+        this.back = back
+        this.points = difficultyPoints[Difficulty.NORMAL.ordinal()]
+        this.difficulty = Difficulty.NORMAL
     }
 }
