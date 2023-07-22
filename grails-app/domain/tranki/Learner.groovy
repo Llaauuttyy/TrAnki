@@ -17,25 +17,31 @@ enum Level {
 }
 
 class Learner {
-    // int MAX_DECKS = 5 BORRAR ya que uso el de Level.
 
     String name
-    List<Deck> decks
     // Stats stats
     Level level
+    List<Deck> decks
 
     static constraints = {
     }
 
-    Learner(String name, List<Deck> decks) {
+    static hasMany = [
+        decks: Deck
+    ]
+
+
+    Learner(String name) {
+        // Validar que los parámetros estén como en la constraints.
+        
         this.name = name
-        this.decks = decks
+        this.decks = []
         this.level = Level.NOOB
     }
 
     Deck createDeck(String name) {
         if (decks.size() < this.level.decks) {
-            Deck newDeck = new Deck(name)
+            Deck newDeck = new Deck(name, this)
             addDeck(newDeck)
 
             newDeck
@@ -49,7 +55,7 @@ class Learner {
 
     Card createCard(String front, String back, Deck deck) {
         if (deck.getSize() < this.level.cards) {
-            Card newCard = new Card(front, back)
+            Card newCard = new Card(front, back, deck)
 
             // check update level
             deck.addCard(newCard)

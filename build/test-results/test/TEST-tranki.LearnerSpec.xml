@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="tranki.LearnerSpec" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-05-29T22:52:07" hostname="lauty-aer" time="0.135">
+<testsuite name="tranki.LearnerSpec" tests="3" skipped="0" failures="0" errors="0" timestamp="2023-07-21T21:18:38" hostname="lauty-aer" time="0.04">
   <properties/>
-  <testcase name="learner can create deck when decks amount is less than max allowed" classname="tranki.LearnerSpec" time="0.131"/>
-  <testcase name="learner can create a card when having at least a deck created" classname="tranki.LearnerSpec" time="0.004"/>
+  <testcase name="learner can create deck when decks amount is less than max allowed per level" classname="tranki.LearnerSpec" time="0.027"/>
+  <testcase name="learner can create a card when having at least a deck created" classname="tranki.LearnerSpec" time="0.011"/>
+  <testcase name="learner can change card difficulty if level is not noob" classname="tranki.LearnerSpec" time="0.002"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

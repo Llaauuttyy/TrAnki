@@ -1,8 +1,14 @@
 package tranki
 
+// import grails.testing.miin.integration.Integration
 import grails.testing.gorm.DomainUnitTest
 import spock.lang.Specification
+// import grails.gorm.transactions.*
+// import spock.lang.*
 
+// @Integration
+// @Transactional
+// @Rollback
 class LearnerSpec extends Specification implements DomainUnitTest<Learner> {
 
     def setup() {
@@ -15,7 +21,7 @@ class LearnerSpec extends Specification implements DomainUnitTest<Learner> {
         given:"decks amount is less than max allowed per level"
         // Si usamos el constructor por defecto.
         // Learner learner = new Learner(name: "Juan", decks: [])
-        Learner learner = new Learner("Juan", [])
+        Learner learner = new Learner("Juan")
 
         when:"learner tries to create a new deck"
         Deck deck = learner.createDeck("Mazo1")
@@ -28,7 +34,7 @@ class LearnerSpec extends Specification implements DomainUnitTest<Learner> {
         given:'''decks amount is at least one, 
         cards amount is less than max allowed per level, 
         learner needs only a card to get to intermediate level'''
-        Learner learner = new Learner("Rober", [])
+        Learner learner = new Learner("Rober")
         Deck deck = learner.createDeck("Mazo1")
 
         for(int i = 0; i < Level.INTERMEDIATE.cardsRequired - 1; i++) {
@@ -44,7 +50,7 @@ class LearnerSpec extends Specification implements DomainUnitTest<Learner> {
 
     void "learner can change card difficulty if level is not noob"() {
         given:"decks and cards amount is at least one and level is other than noob"
-        Learner learner = new Learner("Pepe", [])
+        Learner learner = new Learner("Pepe")
 
         Deck deck = learner.createDeck("Mazo1")
         Card card = learner.createCard("Hello", "Hola", deck)

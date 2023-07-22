@@ -14,15 +14,22 @@ enum Difficulty {
 
 class Card {
 
+    Deck deck
     String front
     String back
     Difficulty difficulty
 
     static constraints = {
+        // Validar que los parámetros estén como en la constraints.
     }
 
-    Card(String front, String back) {
+    static belongsTo = [
+        deck: Deck
+    ]
+
+    Card(String front, String back, Deck deck) {
         // cards at first are set to NORMAL difficulty.
+        this.deck = deck
         this.front = front
         this.back = back
         this.difficulty = Difficulty.NORMAL
