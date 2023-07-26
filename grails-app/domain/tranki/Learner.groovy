@@ -30,7 +30,6 @@ class Learner {
         decks: Deck
     ]
 
-
     Learner(String name) {
         // Validar que los parámetros estén como en la constraints.
         
@@ -66,6 +65,7 @@ class Learner {
         else {
             // no se puede crear la carta.
             // tirar error
+            // puedo devolver null para agarrarlo en el service.
             println "No se puede crear la card"
         }
     }
@@ -88,20 +88,23 @@ class Learner {
             cardsAmount += decks[i].getSize()
         }
 
-        // println "Total cards: " + cardsAmount
+        println "Total cards: " + cardsAmount
+        // println cardsAmount == Level.values()[this.level.ordinal() + 1].cardsRequired
 
         if (this.level != Level.ADVANCED && cardsAmount == Level.values()[this.level.ordinal() + 1].cardsRequired) {
             this.level = Level.values()[this.level.ordinal() + 1]
-            // println "Cambio de nivel!"
+            println "Cambio de nivel!"
         }
     }
 
-    def changeCardDifficulty(Deck deck, Card card, Difficulty difficulty) {
+    boolean changeCardDifficulty(Deck deck, Card card, Difficulty difficulty) {
         if (this.level != Level.NOOB) {
             deck.changeCardDifficulty(card, difficulty)
+            return true
         }
         else {
             println "No se puede cambiar la dificultad de la carta"
+            return false
         }
     }
 }

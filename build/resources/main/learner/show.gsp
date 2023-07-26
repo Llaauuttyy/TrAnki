@@ -7,6 +7,7 @@
 <body>
     <div id="header">
         <h1>${learner.name} decks</h1>
+        <h4>Level: ${learner.level}</h4>
     </div>
     
     <div id="content">
@@ -18,7 +19,7 @@
                     <input value="${learnerDeck.name}" type="submit"/>
                 </g:form> --%>
                 <%-- <g:link controller="deck" action="prueba" params="[deckId: learnerDeck.id.toInteger()]">${learnerDeck.name}</g:link> --%>
-                <g:link uri="/deck/showCards/${learnerDeck.id.toInteger()}">${learnerDeck.name}</g:link>
+                <g:link uri="/deck/showCards/${learner.id.toInteger()}/${learnerDeck.id.toInteger()}">${learnerDeck.name}</g:link>
                 <g:link uri="/deck/newCard/${learner.id.toInteger()}/${learnerDeck.id.toInteger()}">+ add card</g:link>
                 <g:link uri="/deck/removeDeck/${learner.id.toInteger()}/${learnerDeck.id.toInteger()}">- remove</g:link>
                 <br>

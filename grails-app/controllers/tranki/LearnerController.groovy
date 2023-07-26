@@ -46,6 +46,7 @@ class LearnerController {
         // learner.save()
         Learner learner = learnerService.getLearner(params.learnerName)
         println learner.name
+        println learner.decks
         redirect action: "showLearner", params: [id: learner.id]
         // Learner learner = Learner.findByName("Lauty")
         // println learner.decks[0].cards[0].front
@@ -62,6 +63,8 @@ class LearnerController {
         // println params
         // capaz puedo usar un repository aca
         Learner learner =  learnerService.getLearnerById(params.id.toInteger())
+        println learner.level
+        println learner.decks
         render(view: "/learner/show", model: [learner: learner])
     }
 

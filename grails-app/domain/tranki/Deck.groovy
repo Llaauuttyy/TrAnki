@@ -4,19 +4,16 @@ class Deck {
 
     Learner learner
     String name
-    // List<Card> easyCards
-    // List<Card> normalCards
-    // List<Card> hardCards
 
     List<Card> cards
-    int cardsSlidCounter
+    int deckPos
+
+    int cardsSlid
 
     static constraints = {
     }
 
-    static belongsTo = [
-        learner: Learner
-    ]
+    static belongsTo = Learner
 
     static hasMany = [
         cards: Card
@@ -39,7 +36,8 @@ class Deck {
         // this.hardCards = []
 
         this.cards = []
-        this.cardsSlidCounter = 0
+        this.deckPos = 0
+        this.cardsSlid = 0
     }
 
     def addCard(Card card) {
@@ -72,20 +70,21 @@ class Deck {
     }
 
     Card getNextCard() {
+        // migrado al service.
         if (this.cards.size() == 0) {
             return null
         }
 
         println "INICIO"
-        println cardsSlidCounter
+        println deckPos
 
-        Card card = this.cards[this.cardsSlidCounter]
-        this.cardsSlidCounter += 1
+        Card card = this.cards[this.deckPos]
+        this.deckPos += 1
 
-        if (this.cardsSlidCounter == this.cards.size()) {
-            this.cardsSlidCounter = 0
+        if (this.deckPos == this.cards.size()) {
+            this.deckPos = 0
         }
-        println cardsSlidCounter
+        println deckPos
         return card
     }
 

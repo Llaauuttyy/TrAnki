@@ -47,8 +47,8 @@ class DeckController {
         Card card = deckService.getCard(params.deckId.toInteger())
         if (card) {
             println "Controller"
-            println deckService.getDeck(params.deckId.toInteger()).cardsSlidCounter
-            render (view: "/deck/showCards", model: [deckId: params.deckId, card: card])
+            println deckService.getDeck(params.deckId.toInteger()).cardsSlid
+            render (view: "/deck/showCards", model: [learnerId: params.learnerId, deckId: params.deckId, card: card, difficulty: Difficulty])
         }
 
         else {
@@ -59,6 +59,27 @@ class DeckController {
         
         // Aca iria el render donde muestro las cartas
         // en vez de pasar el id del mazo puedo usar card.getDeckId()
+    }
+
+    def showBack() {
+        println "//////// showBack ////////"
+        Card card = cardService.getCard(params.cardId.toInteger())
+        render (view: "/deck/showBack", model: [learnerId: params.learnerId, deckId: params.deckId, card: card, difficulty: Difficulty])
+    }
+
+    def changeCardDifficulty() {
+        println "//////// changeCardDifficulty ////////"
+        println params
+        Card card = cardService.getCard(params.cardId.toInteger())
+        if (deckService.changeCardDifficulty(params.learnerId.toInteger(), params.deckId.toInteger(), params.cardId.toInteger(), Difficulty.valueOf(params.difficulty))) {
+            render(view: "/deck/showCards", model: [learnerId: params.learnerId, deckId: params.deckId, card: card, difficulty: Difficulty])
+        }
+
+        else {
+            render "card difficulty change failed"
+
+        }
+
     }
 
     def newDeck() {

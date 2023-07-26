@@ -19,7 +19,10 @@ class UrlMappings {
 
         "/deck/newCard/$learnerId/$deckId"(controller: 'deck', action: 'newCard')
 
-        "/deck/showCards/$deckId"(controller: 'deck', action: 'showCards')
+        "/deck/showCards/$learnerId/$deckId"(controller: 'deck', action: 'showCards')
+        "/deck/showBack/$learnerId/$deckId/$cardId"(controller: 'deck', action: 'showBack')
+
+        "/deck/changeCardDifficulty/$learnerId/$deckId/$cardId/$difficulty"(controller: 'deck', action: 'changeCardDifficulty')
 
         // "/"(controller: 'learner', action: 'index')
         "/"(view: '/learner/index')
