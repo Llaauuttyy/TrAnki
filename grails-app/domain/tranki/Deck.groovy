@@ -88,6 +88,10 @@ class Deck {
         return card
     }
 
+    List<Card> getCards() {
+        this.cards
+    }
+
 
     // aca tiene que estar la logica de pasar las cartas, calcular puntos, etc.
     // asi dejar de ser una clase anémica.

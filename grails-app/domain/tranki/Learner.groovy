@@ -19,7 +19,7 @@ enum Level {
 class Learner {
 
     String name
-    // Stats stats
+    Stats stats
     Level level
     List<Deck> decks
 
@@ -36,6 +36,7 @@ class Learner {
         this.name = name
         this.decks = []
         this.level = Level.NOOB
+        this.stats = new Stats()
     }
 
     Deck createDeck(String name) {
@@ -106,5 +107,14 @@ class Learner {
             println "No se puede cambiar la dificultad de la carta"
             return false
         }
+    }
+
+    Stats getStats() {
+        this.stats.getLearnerMaxPoints(this.decks)
+        this.stats.getLearnerCurrentPoints(this.decks)
+        this.stats.getLearnerDeckAmount(this.decks)
+        this.stats.getLearnerCardAmount(this.decks)
+
+        return this.stats
     }
 }

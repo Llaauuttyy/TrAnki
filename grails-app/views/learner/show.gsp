@@ -9,7 +9,12 @@
         <h1>${learner.name} decks</h1>
         <h4>Level: ${learner.level}</h4>
     </div>
-    
+    <div>
+        <p>Max points: ${stats.maxPoints}</p>
+        <p>Current points: ${stats.currentPoints}</p>
+        <p>Deck amount: ${stats.deckAmount}</p>
+        <p>Card amount: ${stats.cardAmount}</p>
+    </div>
     <div id="content">
         <%-- <p>Deck list</p> --%>
         <ul>

@@ -63,9 +63,10 @@ class LearnerController {
         // println params
         // capaz puedo usar un repository aca
         Learner learner =  learnerService.getLearnerById(params.id.toInteger())
+        Stats stats = learnerService.getStats(params.id.toInteger())
         println learner.level
         println learner.decks
-        render(view: "/learner/show", model: [learner: learner])
+        render(view: "/learner/show", model: [learner: learner, stats: stats])
     }
 
     def back() {

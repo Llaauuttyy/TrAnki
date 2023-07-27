@@ -69,15 +69,15 @@ class DeckService {
         Card nextCard
 
         List<Card> easyCards = deck.cards.findAll{card -> card.difficulty == Difficulty.EASY}
+        List<Card> normalCards = deck.cards.findAll{card -> card.difficulty == Difficulty.NORMAL}
         // agregar condicion en caso de q todas las cartas sean easy. Seria q el array de normales es 0 y el cards.size es mayor a 0.
-        if (deck.cardsSlid % 3 == 0 && !easyCards.isEmpty()) { 
+        if ((deck.cardsSlid % 3 == 0 && !easyCards.isEmpty()) || (deck.getSize() != 0 && normalCards.isEmpty())) { 
             int randomCardPos = new Random().nextInt(easyCards.size())
             println "Random card pos: " + randomCardPos
 
             nextCard = easyCards[randomCardPos]
         }
         else {
-            List<Card> normalCards = deck.cards.findAll{card -> card.difficulty == Difficulty.NORMAL}
             int randomCardPosNormal = new Random().nextInt(normalCards.size())
             // nextCard = normalCards[deck.deckPos]
             deck.deckPos += 1

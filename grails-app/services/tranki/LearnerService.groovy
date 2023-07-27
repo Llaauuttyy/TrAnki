@@ -25,4 +25,10 @@ class LearnerService {
     Learner getLearnerById(int id) {
         return Learner.get(id)
     }
+
+    Stats getStats(int id) {
+        Learner learner = getLearnerById(id)
+
+        return learner.getStats()
+    }
 }
