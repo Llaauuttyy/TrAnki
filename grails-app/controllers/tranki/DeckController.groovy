@@ -11,59 +11,43 @@ class DeckController {
     def scaffold = Deck
 
     def index() {
-        // assert true == false
-        println "H"
         println params.learnerName
 
         
-        // Learner learner = new Learner("Juan12", [])
-        // Deck deck = learner.createDeck("Mazo1Juan1")
-        // learner.addToDecks(deck)
-        // // deck.save()
-        // learner.save()
-
-        // Learner learner = new Learner("JuanFINAL2", [])
-        // Deck deck = new Deck("MazoJuanFINAL2", learner)
-        // // learner.addToDecks(deck)
-        // learner.save() // Primero guardo al learner sino no puedo guardar 
-        // // el deck porque no sabe que poner en learnerId.
-        // deck.save()
-        // Para las cards tambien tengo que asociarles el deck en el constructor IMPORTANTE
         
         // Ver lo de que no se guarda automáticamente.
         Learner learner = Learner.get(2)
         println learner.name
-        println learner.decks[0].name //[0].name
-        // learner.decks[0].name = "Cambiaaabre"
-        // println learner.decks[0].name
         render(view: "/deck/index", model: [learnerDecks: learner.decks])
 
         // Estaria bueno que el usuario ponga su nombre y de ahi de pueda
         // cargas los mazos y cartas con ese nombre y de ahi bueno empezar la app.
     }
 
-    def showCards() {
+    def showCards(Long deckId, Long learnerId) {
         println "//////// showCards ////////"
-        Card card = deckService.getCard(params.deckId.toInteger())
+        Card card = deckService.getCard(deckId)
         if (card) {
             println "Controller"
-            println deckService.getDeck(params.deckId.toInteger()).cardsSlid
-            render (view: "/deck/showCards", model: [learnerId: params.learnerId, deckId: params.deckId, card: card, difficulty: Difficulty])
+            println deckService.getDeck(deckId).cardsSlid
+            // render (view: "/deck/showCards", model: [learnerId: params.learnerId, deckId: params.deckId, card: card, difficulty: Difficulty])
+            render (view: "/deck/showCards", model: [learnerId: learnerId, deckId: deckId, card: card, difficulty: Difficulty])
+
         }
 
         else {
             println "Deck is empty at controller Deck"
             render "Deck is empty"
         }
-        // println deck.name
         
-        // Aca iria el render donde muestro las cartas
         // en vez de pasar el id del mazo puedo usar card.getDeckId()
     }
 
     def showBack() {
         println "//////// showBack ////////"
+
         Card card = cardService.getCard(params.cardId.toInteger())
+
         render (view: "/deck/showBack", model: [learnerId: params.learnerId, deckId: params.deckId, card: card, difficulty: Difficulty])
     }
 
@@ -84,7 +68,6 @@ class DeckController {
 
     def newDeck() {
         println "//////// newDeck ////////"
-        // deckService.createDeck(params.id)
         render(view: "/deck/addDeck", model: [learnerId: params.id])
     }
 
@@ -112,7 +95,6 @@ class DeckController {
 
     def newCard() {
         println "//////// newCard ////////"
-        // deckService.createDeck(params.id)
         println params
         render(view: "/deck/addCard", model: [learnerId: params.learnerId, deckId: params.deckId])
     }

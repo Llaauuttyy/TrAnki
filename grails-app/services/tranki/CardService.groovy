@@ -36,8 +36,9 @@ class CardService {
     def changeCardDifficulty(Deck deck, int cardId, Difficulty difficulty) {
         Card card = getCard(cardId)
         // card.difficulty = Difficulty.EASY
-        // card.setDifficulty(Difficulty.EASY)
+        card.changeDifficulty(difficulty)
         // card.save(flush: true)
+
         // aca lo cambia, pero en el service deck, no.
         // deck.name = "sabatinelas"
         // deck.save()

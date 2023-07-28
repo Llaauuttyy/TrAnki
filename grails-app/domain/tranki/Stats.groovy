@@ -9,7 +9,7 @@ class Stats {
     static constraints = {
     }
 
-    def getLearnerMaxPoints(List<Deck> decks) {
+    def getLearnerMaxPoints(Set<Deck> decks) {
         this.maxPoints = 0
 
         if (!decks.isEmpty()) { // creo que no hace falta porq si el array es vacio no hace nada
@@ -20,7 +20,7 @@ class Stats {
     }
 
     // cambiar el actual a current en el diagrama de clases.
-    def getLearnerCurrentPoints(List<Deck> decks) {
+    def getLearnerCurrentPoints(Set<Deck> decks) {
         this.currentPoints = 0
 
         if (!decks.isEmpty()) {
@@ -33,12 +33,12 @@ class Stats {
 
     }
 
-    def getLearnerDeckAmount(List<Deck> decks) {
+    def getLearnerDeckAmount(Set<Deck> decks) {
         this.deckAmount = decks.size()
 
     }
 
-    def getLearnerCardAmount(List<Deck> decks) {
+    def getLearnerCardAmount(Set<Deck> decks) {
         this.cardAmount = 0
 
         if (!decks.isEmpty()) {

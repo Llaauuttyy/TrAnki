@@ -21,7 +21,7 @@ class Learner {
     String name
     Stats stats
     Level level
-    List<Deck> decks
+    Set<Deck> decks
 
     static constraints = {
     }
@@ -32,6 +32,7 @@ class Learner {
 
     Learner(String name) {
         // Validar que los parámetros estén como en la constraints.
+        // name cant be null
         
         this.name = name
         this.decks = []

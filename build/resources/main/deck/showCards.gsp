@@ -14,5 +14,7 @@ renderizo la misma view, si no la tiene la cambio y renderizo la misma view. --%
 <br>
 <g:link uri="/deck/changeCardDifficulty/${learnerId.toInteger()}/${deckId.toInteger()}/${card.id.toInteger()}/${difficulty.NORMAL}">normal</g:link>
 <br>
+<g:link uri="/deck/changeCardDifficulty/${learnerId.toInteger()}/${deckId.toInteger()}/${card.id.toInteger()}/${difficulty.HARD}">hard</g:link>
+<br>
 <br>
 <g:link uri="/deck/showCards/${learnerId.toInteger()}/${deckId.toInteger()}">next card</g:link>

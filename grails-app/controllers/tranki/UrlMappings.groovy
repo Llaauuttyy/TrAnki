@@ -22,6 +22,7 @@ class UrlMappings {
         "/deck/showCards/$learnerId/$deckId"(controller: 'deck', action: 'showCards')
         "/deck/showBack/$learnerId/$deckId/$cardId"(controller: 'deck', action: 'showBack')
 
+        // puedo acceder a los ids con .id
         "/deck/changeCardDifficulty/$learnerId/$deckId/$cardId/$difficulty"(controller: 'deck', action: 'changeCardDifficulty')
 
         // "/"(controller: 'learner', action: 'index')

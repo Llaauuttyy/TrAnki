@@ -16,13 +16,12 @@
         <p>Card amount: ${stats.cardAmount}</p>
     </div>
     <div id="content">
-        <%-- <p>Deck list</p> --%>
         <ul>
-            <g:each in="${learner.decks}" var="learnerDeck">
+            <g:each in="${learner.decks}" var="learnerDeck"> --%>
                 <%-- <g:form controller="deck" action="prueba" a="learnerDeck.name">
                     <input type="hidden" name="deckId" value="${learnerDeck.id}" />
                     <input value="${learnerDeck.name}" type="submit"/>
-                </g:form> --%>
+                </g:form>
                 <%-- <g:link controller="deck" action="prueba" params="[deckId: learnerDeck.id.toInteger()]">${learnerDeck.name}</g:link> --%>
                 <g:link uri="/deck/showCards/${learner.id.toInteger()}/${learnerDeck.id.toInteger()}">${learnerDeck.name}</g:link>
                 <g:link uri="/deck/newCard/${learner.id.toInteger()}/${learnerDeck.id.toInteger()}">+ add card</g:link>

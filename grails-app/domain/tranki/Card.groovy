@@ -20,6 +20,12 @@ class Card {
     Difficulty difficulty
 
     static constraints = {
+        // deck(nullable: false)
+        // front(nullable: false, blank: false)
+        // back(nullable: false, blank: false)
+        // difficulty(nullable: false)
+        // <> null
+        // string distinto de vacio.
         // Validar que los parámetros estén como en la constraints.
     }
 
@@ -28,11 +34,12 @@ class Card {
     ]
 
     Card(String front, String back, Deck deck) {
-        // cards at first are set to NORMAL difficulty.
+        // deck, front, back cant be null
+        // cards at first are set to HRAD difficulty.
         this.deck = deck
         this.front = front
         this.back = back
-        this.difficulty = Difficulty.NORMAL
+        this.difficulty = Difficulty.HARD
     }
 
     def changeDifficulty(Difficulty difficulty) {

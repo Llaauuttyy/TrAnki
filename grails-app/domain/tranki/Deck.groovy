@@ -2,16 +2,21 @@ package tranki
 
 class Deck {
 
+    // tirar excepciones en clase de dominio, en el service no hacer nada y en el controller try catch.
+    // cambiar url accediendo a las clases rompiendo encap.
+    // no hacer getAttributo en la clase porque grails ya lo tiene y sino se bugguea.
+    
     Learner learner
     String name
-
-    List<Card> cards
-    int deckPos
-
     int cardsSlid
 
-    static constraints = {
-    }
+    Set<Card> cards
+
+    // static constraints = {
+    //     learner(nullable: false)
+    //     name(nullable: false, blank: false)
+    //     cardsSlid(min: 0)
+    // }
 
     static belongsTo = Learner
 
@@ -20,23 +25,15 @@ class Deck {
     ]
 
     Deck(String name, Learner learner) {
+        // if (!learner)
+        // if (!name || name.trim().isEmpty()) 
         // Validar que los parámetros estén como en la constraints.
+        // name and learner cant be null.
 
         this.name = name
         this.learner = learner
 
-        // Dejar un solo array y cuando se pasa una carta va a otro 
-        // array (array de cartas pasadas) y luego cuando se quedan sin cartas de un cierto tipo,
-        // se vuelven a agregar todas las de ese tipo al array.
-        // Un array vendría directo de la base. Usando hasMany.
-
-        // Estos traen error de duplicated column.
-        // this.easyCards = []
-        // this.normalCards = []
-        // this.hardCards = []
-
         this.cards = []
-        this.deckPos = 0
         this.cardsSlid = 0
     }
 
@@ -49,8 +46,6 @@ class Deck {
     }
 
     int getSize() {
-        // cards.size() + cardsSlid.size()
-        // easyCards.size() + normalCards.size() + hardCards.size()
         this.cards.size()
     }
 
@@ -88,9 +83,9 @@ class Deck {
         return card
     }
 
-    List<Card> getCards() {
-        this.cards
-    }
+//     List<Card> getCards() {
+//         this.cards
+// }
 
 
     // aca tiene que estar la logica de pasar las cartas, calcular puntos, etc.
