@@ -18,8 +18,7 @@
     </div>
     <div id="content">
         <ul>
-            <g:each in="${learner.decks}" var="learnerDeck"> --%>
-                <%-- <g:link controller="deck" action="prueba" params="[deckId: learnerDeck.id.toInteger()]">${learnerDeck.name}</g:link> --%>
+            <g:each in="${learner.decks}" var="learnerDeck">
                 <g:link uri="/deck/showCards/${learnerDeck.id}">${learnerDeck.name}</g:link>
                 <g:link uri="/deck/newCard/${learnerDeck.id}">+ add card</g:link>
                 <g:link uri="/deck/show/${learnerDeck.id}"> see cards</g:link>
