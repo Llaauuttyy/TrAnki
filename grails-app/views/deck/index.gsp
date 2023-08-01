@@ -10,15 +10,9 @@
     </div>
     
     <div id="content">
-        <%-- <p>Deck list</p> --%>
         <ul>
             <g:each in="${learnerDecks}" var="learnerDeck">
-                <%-- <g:form controller="deck" action="prueba" a="learnerDeck.name">
-                    <input type="hidden" name="deckId" value="${learnerDeck.id}" />
-                    <input value="${learnerDeck.name}" type="submit"/>
-                </g:form> --%>
-                <%-- <g:link controller="deck" action="prueba" params="[deckId: learnerDeck.id.toInteger()]">${learnerDeck.name}</g:link> --%>
-                <g:link uri="/deck/index/${learnerDeck.id.toInteger()}">${learnerDeck.name}</g:link>
+                <g:link uri="/deck/index/${learnerDeck.id}">${learnerDeck.name}</g:link>
             </g:each>
         </ul>
     </div>

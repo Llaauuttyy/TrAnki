@@ -20,13 +20,10 @@ class Card {
     Difficulty difficulty
 
     static constraints = {
-        // deck(nullable: false)
-        // front(nullable: false, blank: false)
-        // back(nullable: false, blank: false)
-        // difficulty(nullable: false)
-        // <> null
-        // string distinto de vacio.
-        // Validar que los parámetros estén como en la constraints.
+        deck(nullable: false)
+        front(nullable: false, blank: false)
+        back(nullable: false, blank: false)
+        difficulty(nullable: false)
     }
 
     static belongsTo = [
@@ -34,8 +31,10 @@ class Card {
     ]
 
     Card(String front, String back, Deck deck) {
-        // deck, front, back cant be null
-        // cards at first are set to HRAD difficulty.
+        if (!front || front.trim().isEmpty() || !back || back.trim().isEmpty() || !deck) {
+            throw new IllegalArgumentException("Arguments cant be null or empty")
+        }
+
         this.deck = deck
         this.front = front
         this.back = back
@@ -43,7 +42,7 @@ class Card {
     }
 
     def changeDifficulty(Difficulty difficulty) {
-        this.difficulty = difficulty
+        this.setDifficulty(difficulty)
     }
 
     boolean isDifficulty(Difficulty difficulty) {

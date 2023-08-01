@@ -5,30 +5,28 @@ import grails.gorm.transactions.Transactional
 @Transactional
 class LearnerService {
 
-    Learner getLearner(String name) {
-        Learner learner = Learner.findByName(name)
+    Learner getLearner(int id) {
+        Learner learner = Learner.get(id)
         if (!learner) {
-            println "no esta el learner"
-            learner = createLearner(name)
+            throw new RuntimeException("There is no learner by that ID.")
         }
 
         learner
     }
 
-    // primero create y despues el get en el start de learner
     Learner createLearner(String name) {
-        Learner learner = new Learner(name)
-        // aca podria ocurrir un error si no se puede crear.
-        learner.save()
+        Learner learner = Learner.findByName(name)
+        if (!learner) {
+            println "no esta el learner"
+            learner = new Learner(name)
+            learner.save()
+        }
+
         return learner
     }
 
-    Learner getLearnerById(int id) {
-        return Learner.get(id)
-    }
-
     Stats getStats(int id) {
-        Learner learner = getLearnerById(id)
+        Learner learner = getLearner(id)
 
         return learner.getStats()
     }

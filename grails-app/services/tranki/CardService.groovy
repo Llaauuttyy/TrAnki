@@ -5,42 +5,37 @@ import grails.gorm.transactions.Transactional
 @Transactional
 class CardService {
 
-    boolean createCard(int learnerId, int deckId, String front, String back) {
+    void create(int learnerId, int deckId, String front, String back) {
         Learner learner = Learner.get(learnerId)
         Deck deck = Deck.get(deckId)
 
-        Card card = learner.createCard(front, back, deck)
-        if (card) {
-            println "Card created succesfully"
-            
-            // SACAR ESTO
-            println deck.getSize()
-            // Lo dejo aca de esta forma para probar la funcionalidad
-            // de aprendizaje por repeticion espaciada,
-            // luego tendria que poner la logica, que preferentemente deberia
-            // estar en la clase de dominio.
-            learner.level = Level.INTERMEDIATE
-            learner.save()
-
-            return true
-        }
-
-        return false
+        learner.createCard(front, back, deck)
     }
 
     Card getCard(int cardId) {
         Card card = Card.get(cardId)
+        if (!card) {
+            throw new RuntimeException("There is no card by that ID")
+        }
+
         card
     }
 
-    def changeCardDifficulty(Deck deck, int cardId, Difficulty difficulty) {
+    void remove(int cardId) {
         Card card = getCard(cardId)
-        // card.difficulty = Difficulty.EASY
-        card.changeDifficulty(difficulty)
-        // card.save(flush: true)
 
-        // aca lo cambia, pero en el service deck, no.
-        // deck.name = "sabatinelas"
-        // deck.save()
+        card.delete()
+    }
+
+    long getDeckId(int cardId) {
+        Card card = getCard(cardId)
+
+        return card.deck.id
+    }
+
+    long getLearnerId(int cardId) {
+        Card card = getCard(cardId)
+
+        return card.deck.learner.id
     }
 }

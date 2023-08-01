@@ -1,5 +1,11 @@
 package tranki
 
+class InvalidActionException extends Exception {
+    InvalidActionException(String message) {
+        super(message)
+    }
+}
+
 enum Level {
     NOOB(5, 10, 0),
     INTERMEDIATE(10, 10, 10),
@@ -21,9 +27,13 @@ class Learner {
     String name
     Stats stats
     Level level
+
     Set<Deck> decks
 
     static constraints = {
+        name(nullable: false, blank: false)
+        stats(nullable: false)
+        level(nullable: false)
     }
 
     static hasMany = [
@@ -31,9 +41,10 @@ class Learner {
     ]
 
     Learner(String name) {
-        // Validar que los parámetros estén como en la constraints.
-        // name cant be null
-        
+        if (!name || name.trim().isEmpty()) {
+            throw new IllegalArgumentException("Arguments cant be null or empty")
+        }
+
         this.name = name
         this.decks = []
         this.level = Level.NOOB
@@ -48,9 +59,7 @@ class Learner {
             newDeck
         }
         else {
-            // no se puede crear el mazo.
-            // tirar error
-            println "No se puede crear el mazo"
+            throw new InvalidActionException("Deck cannot be created due max deck amount has been reached for this level.")
         }
     }
 
@@ -58,21 +67,17 @@ class Learner {
         if (deck.getSize() < this.level.cards) {
             Card newCard = new Card(front, back, deck)
 
-            // check update level
             deck.addCard(newCard)
             updateLevel()
 
             newCard
         }
         else {
-            // no se puede crear la carta.
-            // tirar error
-            // puedo devolver null para agarrarlo en el service.
-            println "No se puede crear la card"
+            throw new InvalidActionException("Card cannot be created due max card amount has been reached for this deck.")
         }
     }
 
-    def addDeck(Deck deck) {
+    void addDeck(Deck deck) {
         decks.add(deck)
     }
 
@@ -80,33 +85,27 @@ class Learner {
         this.level == level
     }
 
-    def setLevel(Level level) {
+    void setLevel(Level level) {
         this.level = level
     }
 
-    def updateLevel() {
+    void updateLevel() {
         int cardsAmount = 0
         for(int i = 0; i < decks.size(); i++) {
             cardsAmount += decks[i].getSize()
         }
 
-        println "Total cards: " + cardsAmount
-        // println cardsAmount == Level.values()[this.level.ordinal() + 1].cardsRequired
-
         if (this.level != Level.ADVANCED && cardsAmount == Level.values()[this.level.ordinal() + 1].cardsRequired) {
-            this.level = Level.values()[this.level.ordinal() + 1]
-            println "Cambio de nivel!"
+            this.setLevel(Level.values()[this.level.ordinal() + 1])
         }
     }
 
-    boolean changeCardDifficulty(Deck deck, Card card, Difficulty difficulty) {
+    void changeCardDifficulty(Deck deck, Card card, Difficulty difficulty) {
         if (this.level != Level.NOOB) {
             deck.changeCardDifficulty(card, difficulty)
-            return true
         }
         else {
-            println "No se puede cambiar la dificultad de la carta"
-            return false
+            throw new InvalidActionException("Card difficulty cannot be changed. Available for Intermediate level and higher.")
         }
     }
 

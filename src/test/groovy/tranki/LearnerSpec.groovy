@@ -1,20 +1,26 @@
 package tranki
 
-// import grails.testing.miin.integration.Integration
 import grails.testing.gorm.DomainUnitTest
 import spock.lang.Specification
-// import grails.gorm.transactions.*
-// import spock.lang.*
 
-// @Integration
-// @Transactional
-// @Rollback
 class LearnerSpec extends Specification implements DomainUnitTest<Learner> {
 
     def setup() {
     }
 
     def cleanup() {
+    }
+
+    void "creation of invalid learner creates an exception"() {
+        given:"invalid params for a learner"
+        def name = " "
+
+        when:"tries to create a card with those params"
+        Learner learner = new Learner(name)
+
+        then:"an exception is thrown"
+        Exception exception = thrown(IllegalArgumentException)
+        exception.message == "Arguments cant be null or empty"
     }
 
     void "learner can create deck when decks amount is less than max allowed per level"() {
@@ -63,22 +69,4 @@ class LearnerSpec extends Specification implements DomainUnitTest<Learner> {
         then: "card difficulty is changed and card points are updated"
         card.getPoints() == Difficulty.EASY.points
     }
-
-    // void "testing deleting"() {
-    //     given: "asasd"
-    //     Learner learner = new Learner("Pepe", [])
-    //     Deck deck = learner.createDeck("Mazo1")
-    //     Card card = learner.createCard("Hello", "Hola", deck)
-    //     println deck.normalCards.size()
-    //     learner.setLevel(Level.INTERMEDIATE)
-    //     learner.changeCardDifficulty(deck, card, Difficulty.EASY)
-
-    //     println deck.normalCards.size()
-    //     println deck.easyCards.size()
-
-    //     when: "Asdasd"
-
-    //     then: "asasd"
-    //     true
-    // }
 }

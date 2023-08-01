@@ -2,21 +2,20 @@ package tranki
 
 class Deck {
 
-    // tirar excepciones en clase de dominio, en el service no hacer nada y en el controller try catch.
-    // cambiar url accediendo a las clases rompiendo encap.
-    // no hacer getAttributo en la clase porque grails ya lo tiene y sino se bugguea.
-    
+    static final int MAX_CARDS_TO_EASY = 3
+    static final int MAX_CARDS_TO_NORMAL = 5
+
     Learner learner
     String name
     int cardsSlid
 
     Set<Card> cards
 
-    // static constraints = {
-    //     learner(nullable: false)
-    //     name(nullable: false, blank: false)
-    //     cardsSlid(min: 0)
-    // }
+    static constraints = {
+        learner(nullable: false)
+        name(nullable: false, blank: false)
+        cardsSlid(min: 0)
+    }
 
     static belongsTo = Learner
 
@@ -24,11 +23,8 @@ class Deck {
         cards: Card
     ]
 
-    Deck(String name, Learner learner) {
-        // if (!learner)
-        // if (!name || name.trim().isEmpty()) 
-        // Validar que los parámetros estén como en la constraints.
-        // name and learner cant be null.
+    Deck(String name, Learner learner) { 
+        if (!learner || !name || name.trim().isEmpty()) throw new IllegalArgumentException("Arguments cant be null or empty")
 
         this.name = name
         this.learner = learner
@@ -49,45 +45,53 @@ class Deck {
         this.cards.size()
     }
 
-    def changeCardDifficulty(Card card, Difficulty difficulty) {
-        // cambio de normal a easy y de easy a normal
+    void changeCardDifficulty(Card card, Difficulty difficulty) {
         card.changeDifficulty(difficulty)
-        // if (card.isDifficulty(Difficulty.NORMAL)) {
-        //     card.changeDifficulty(difficulty)
-        //     normalCards.remove(card)
-        //     easyCards.add(card)
-        // }
-        // else {
-        //     card.changeDifficulty(difficulty)
-        //     easyCards.remove(card)
-        //     normalCards.add(card)
-        // }
     }
 
     Card getNextCard() {
-        // migrado al service.
         if (this.cards.size() == 0) {
-            return null
+            throw new RuntimeException("There's no cards on this deck")
         }
 
-        println "INICIO"
-        println deckPos
+        this.setCardsSlid(this.cardsSlid + 1)
 
-        Card card = this.cards[this.deckPos]
-        this.deckPos += 1
+        Card nextCard
 
-        if (this.deckPos == this.cards.size()) {
-            this.deckPos = 0
+        Set<Card> easyCards = this.cards.findAll{card -> card.difficulty == Difficulty.EASY}
+        Set<Card> normalCards = this.cards.findAll{card -> card.difficulty == Difficulty.NORMAL}
+        Set<Card> hardCards = this.cards.findAll{card -> card.difficulty == Difficulty.HARD}
+
+        if ((this.cardsSlid % MAX_CARDS_TO_NORMAL == 0 && !normalCards.isEmpty())) {
+            int randomCardPosNormal = new Random().nextInt(normalCards.size())
+            println "normal"
+            nextCard = normalCards[randomCardPosNormal]
         }
-        println deckPos
-        return card
+
+        else if ((this.cardsSlid % MAX_CARDS_TO_EASY == 0 && !easyCards.isEmpty())) { 
+            int randomCardPos = new Random().nextInt(easyCards.size())
+
+            println "easy"
+            nextCard = easyCards[randomCardPos]
+        }
+
+        else if (!hardCards.isEmpty()) {
+            int randomCardPosHard = new Random().nextInt(hardCards.size())
+            println "hard"
+            nextCard = hardCards[randomCardPosHard]
+        }
+
+        else {
+            List<Card> mergedCards = []
+            mergedCards.addAll(easyCards)
+            mergedCards.addAll(normalCards)
+
+            int randomCardPosMerged = new Random().nextInt(mergedCards.size())
+
+            println "merged"
+            nextCard = mergedCards[randomCardPosMerged]
+        }
+
+        return nextCard
     }
-
-//     List<Card> getCards() {
-//         this.cards
-// }
-
-
-    // aca tiene que estar la logica de pasar las cartas, calcular puntos, etc.
-    // asi dejar de ser una clase anémica.
 }
