@@ -33,7 +33,7 @@ class DeckService {
     Card getNextCard(int deckId) {
         Deck deck = getDeck(deckId)
 
-        return deck.getNextCard()
+        return deck.slideCard()
     }
 
     void changeCardDifficulty(int learnerId, int deckId, int cardId, Difficulty difficulty) {
@@ -49,5 +49,4 @@ class DeckService {
 
         return deck.learner.id
     }
-
 }

@@ -110,10 +110,7 @@ class Learner {
     }
 
     Stats getStats() {
-        this.stats.getLearnerMaxPoints(this.decks)
-        this.stats.getLearnerCurrentPoints(this.decks)
-        this.stats.getLearnerDeckAmount(this.decks)
-        this.stats.getLearnerCardAmount(this.decks)
+        this.stats.calculate(this.decks)
 
         return this.stats
     }

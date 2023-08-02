@@ -49,13 +49,14 @@ class Deck {
         card.changeDifficulty(difficulty)
     }
 
-    Card getNextCard() {
+    Card slideCard() {
         if (this.cards.size() == 0) {
             throw new RuntimeException("There's no cards on this deck")
         }
 
         this.setCardsSlid(this.cardsSlid + 1)
 
+        println this.cardsSlid
         Card nextCard
 
         Set<Card> easyCards = this.cards.findAll{card -> card.difficulty == Difficulty.EASY}
@@ -63,35 +64,30 @@ class Deck {
         Set<Card> hardCards = this.cards.findAll{card -> card.difficulty == Difficulty.HARD}
 
         if ((this.cardsSlid % MAX_CARDS_TO_NORMAL == 0 && !normalCards.isEmpty())) {
-            int randomCardPosNormal = new Random().nextInt(normalCards.size())
+            nextCard = this.getNextCard(normalCards)
             println "normal"
-            nextCard = normalCards[randomCardPosNormal]
         }
 
         else if ((this.cardsSlid % MAX_CARDS_TO_EASY == 0 && !easyCards.isEmpty())) { 
-            int randomCardPos = new Random().nextInt(easyCards.size())
-
+            nextCard = this.getNextCard(easyCards)
             println "easy"
-            nextCard = easyCards[randomCardPos]
         }
 
         else if (!hardCards.isEmpty()) {
-            int randomCardPosHard = new Random().nextInt(hardCards.size())
+            nextCard = this.getNextCard(hardCards)
             println "hard"
-            nextCard = hardCards[randomCardPosHard]
         }
 
         else {
-            List<Card> mergedCards = []
-            mergedCards.addAll(easyCards)
-            mergedCards.addAll(normalCards)
-
-            int randomCardPosMerged = new Random().nextInt(mergedCards.size())
-
+            Set<Card> mergedCards = (easyCards + normalCards) as Set
+            nextCard = this.getNextCard(mergedCards)
             println "merged"
-            nextCard = mergedCards[randomCardPosMerged]
         }
 
         return nextCard
+    }
+
+    Card getNextCard(Set<Card> cards) {
+        return cards[new Random().nextInt(cards.size())]
     }
 }

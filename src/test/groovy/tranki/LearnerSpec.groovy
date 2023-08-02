@@ -25,8 +25,6 @@ class LearnerSpec extends Specification implements DomainUnitTest<Learner> {
 
     void "learner can create deck when decks amount is less than max allowed per level"() {
         given:"decks amount is less than max allowed per level"
-        // Si usamos el constructor por defecto.
-        // Learner learner = new Learner(name: "Juan", decks: [])
         Learner learner = new Learner("Juan")
 
         when:"learner tries to create a new deck"
@@ -43,7 +41,7 @@ class LearnerSpec extends Specification implements DomainUnitTest<Learner> {
         Learner learner = new Learner("Rober")
         Deck deck = learner.createDeck("Mazo1")
 
-        for(int i = 0; i < Level.INTERMEDIATE.cardsRequired - 1; i++) {
+        for (int i = 0; i < Level.INTERMEDIATE.cardsRequired - 1; i++) {
             Card card = learner.createCard("Hello", "Hola", deck)
         }
 
@@ -55,7 +53,7 @@ class LearnerSpec extends Specification implements DomainUnitTest<Learner> {
     }
 
     void "learner can change card difficulty if level is not noob"() {
-        given:"decks and cards amount is at least one and level is other than noob"
+        given:"deck and card amount is at least one and level is other than noob"
         Learner learner = new Learner("Pepe")
 
         Deck deck = learner.createDeck("Mazo1")
@@ -68,5 +66,26 @@ class LearnerSpec extends Specification implements DomainUnitTest<Learner> {
 
         then: "card difficulty is changed and card points are updated"
         card.getPoints() == Difficulty.EASY.points
+    }
+
+    void "learner changes card difficulty and impacts card sliding"() {
+        given:"deck amount is one and card amount is two, having one card with difficulty easy"
+        Learner learner = new Learner("Teresa")
+        learner.setLevel(Level.INTERMEDIATE)
+
+        Deck deck = learner.createDeck("Mazo1")
+
+        Card firstCard = learner.createCard("Hello", "Hola", deck)
+        learner.changeCardDifficulty(deck, firstCard, Difficulty.EASY)
+
+        Card secondCard = learner.createCard("How are you?", "Como estas?", deck)
+
+        when:"learner slides 3 cards"
+        Card firstCardSlid = deck.slideCard()
+        Card secondCardSlid = deck.slideCard()
+        Card thirdCardSlid = deck.slideCard()
+
+        then:"last next card has easy difficulty"
+        firstCard.getPoints() == thirdCardSlid.getPoints()
     }
 }

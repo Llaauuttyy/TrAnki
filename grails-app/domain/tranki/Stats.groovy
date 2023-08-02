@@ -9,42 +9,39 @@ class Stats {
     static constraints = {
     }
 
-    def getLearnerMaxPoints(Set<Deck> decks) {
+    void calculate(Set<Deck> decks) {
+        this.getLearnerDeckAmount(decks)
+        this.getLearnerCardAmount(decks)
+        this.getLearnerCurrentPoints(decks)
+        this.getLearnerMaxPoints(decks)
+    }
+
+    void getLearnerMaxPoints(Set<Deck> decks) {
         this.maxPoints = 0
 
-        if (!decks.isEmpty()) { // creo que no hace falta porq si el array es vacio no hace nada
-            for (deck in decks) {
-                this.maxPoints += deck.getSize() * Difficulty.EASY.points
-            }
+        if (this.deckAmount > 0) {
+            this.maxPoints = decks.collect{deck -> deck.getSize() * Difficulty.EASY.points}.sum()
         }
     }
 
     // cambiar el actual a current en el diagrama de clases.
-    def getLearnerCurrentPoints(Set<Deck> decks) {
+    void getLearnerCurrentPoints(Set<Deck> decks) {
         this.currentPoints = 0
 
-        if (!decks.isEmpty()) {
-            for (deck in decks) {
-                for (card in deck.getCards()) {
-                    this.currentPoints += card.getPoints()
-                }
-            }
+        if (this.deckAmount > 0 && this.cardAmount > 0) {
+            this.currentPoints = decks.collectMany{deck -> deck.getCards()}.collect{card -> card.getPoints()}.sum()
         }
-
     }
 
-    def getLearnerDeckAmount(Set<Deck> decks) {
+    void getLearnerDeckAmount(Set<Deck> decks) {
         this.deckAmount = decks.size()
-
     }
 
-    def getLearnerCardAmount(Set<Deck> decks) {
+    void getLearnerCardAmount(Set<Deck> decks) {
         this.cardAmount = 0
 
-        if (!decks.isEmpty()) {
-            for (deck in decks) {
-                this.cardAmount += deck.getSize()
-            }
+        if (this.deckAmount > 0) {
+            this.cardAmount = decks.collect{deck -> deck.getSize()}.sum()
         }
     }
 

@@ -10,9 +10,4 @@ class LearnerServiceSpec extends Specification implements ServiceUnitTest<Learne
 
     def cleanup() {
     }
-
-    void "test something"() {
-        expect:"fix me"
-            // true == false
-    }
 }

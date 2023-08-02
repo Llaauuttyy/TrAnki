@@ -10,9 +10,4 @@ class CardServiceSpec extends Specification implements ServiceUnitTest<CardServi
 
     def cleanup() {
     }
-
-    void "test something"() {
-        expect:"fix me"
-            // true == false
-    }
 }

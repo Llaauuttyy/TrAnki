@@ -10,9 +10,4 @@ class CardControllerSpec extends Specification implements ControllerUnitTest<Car
 
     def cleanup() {
     }
-
-    void "test something"() {
-        expect:"fix me"
-            // true == false
-    }
 }

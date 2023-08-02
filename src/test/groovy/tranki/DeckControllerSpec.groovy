@@ -10,9 +10,4 @@ class DeckControllerSpec extends Specification implements ControllerUnitTest<Dec
 
     def cleanup() {
     }
-
-    void "test something"() {
-        expect:"fix me"
-            // true == false
-    }
 }
