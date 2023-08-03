@@ -2,11 +2,11 @@ package tranki
 
 class Deck {
 
-    static final int MAX_CARDS_TO_EASY = 3
-    static final int MAX_CARDS_TO_NORMAL = 5
+    static final int SLIDES_TO_EASY = 3
+    static final int SLIDES_TO_NORMAL = 5
 
-    Learner learner
     String name
+    Learner learner
     int cardsSlid
 
     Set<Card> cards
@@ -33,7 +33,7 @@ class Deck {
         this.cardsSlid = 0
     }
 
-    def addCard(Card card) {
+    void addCard(Card card) {
         this.cards.add(card)
     }
 
@@ -63,12 +63,12 @@ class Deck {
         Set<Card> normalCards = this.cards.findAll{card -> card.difficulty == Difficulty.NORMAL}
         Set<Card> hardCards = this.cards.findAll{card -> card.difficulty == Difficulty.HARD}
 
-        if ((this.cardsSlid % MAX_CARDS_TO_NORMAL == 0 && !normalCards.isEmpty())) {
+        if ((this.cardsSlid % SLIDES_TO_NORMAL == 0 && !normalCards.isEmpty())) {
             nextCard = this.getNextCard(normalCards)
             println "normal"
         }
 
-        else if ((this.cardsSlid % MAX_CARDS_TO_EASY == 0 && !easyCards.isEmpty())) { 
+        else if ((this.cardsSlid % SLIDES_TO_EASY == 0 && !easyCards.isEmpty())) { 
             nextCard = this.getNextCard(easyCards)
             println "easy"
         }

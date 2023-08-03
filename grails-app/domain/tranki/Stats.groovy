@@ -1,10 +1,10 @@
 package tranki
 
 class Stats {
-    int maxPoints
-    int currentPoints
     int deckAmount
     int cardAmount
+    int currentPoints
+    int maxPoints
 
     static constraints = {
     }
@@ -24,7 +24,6 @@ class Stats {
         }
     }
 
-    // cambiar el actual a current en el diagrama de clases.
     void getLearnerCurrentPoints(Set<Deck> decks) {
         this.currentPoints = 0
 

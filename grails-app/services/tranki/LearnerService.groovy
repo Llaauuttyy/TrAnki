@@ -14,7 +14,7 @@ class LearnerService {
         learner
     }
 
-    Learner createLearner(String name) {
+    Learner create(String name) {
         Learner learner = Learner.findByName(name)
         if (!learner) {
             println "no esta el learner"

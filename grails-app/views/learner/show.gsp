@@ -24,6 +24,7 @@
                 <g:link uri="/deck/show/${learnerDeck.id}"> see cards</g:link>
                 <g:link uri="/deck/removeDeck/${learnerDeck.id}">- remove</g:link>
                 <br>
+                <br>
             </g:each>
         </ul>
     </div>

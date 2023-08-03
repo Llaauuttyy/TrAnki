@@ -14,15 +14,15 @@ enum Difficulty {
 
 class Card {
 
-    Deck deck
     String front
     String back
+    Deck deck
     Difficulty difficulty
 
     static constraints = {
-        deck(nullable: false)
         front(nullable: false, blank: false)
         back(nullable: false, blank: false)
+        deck(nullable: false)
         difficulty(nullable: false)
     }
 
@@ -41,7 +41,7 @@ class Card {
         this.difficulty = Difficulty.HARD
     }
 
-    def changeDifficulty(Difficulty difficulty) {
+    void changeDifficulty(Difficulty difficulty) {
         this.setDifficulty(difficulty)
     }
 

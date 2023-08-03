@@ -11,7 +11,7 @@ class LearnerController {
         println "//////// start ////////"
 
         try {
-            Learner learner = learnerService.createLearner(params.learnerName)
+            Learner learner = learnerService.create(params.learnerName)
 
             println learner.name
             println learner.decks
@@ -27,7 +27,7 @@ class LearnerController {
     }
 
     def showLearner() {
-        println "//////// showLearner ////////\n\n\n\n\n\n\n"
+        println "//////// showLearner ////////"
 
         try {
             Learner learner = learnerService.getLearner(params.id.toInteger())

@@ -23,7 +23,7 @@ class LearnerSpec extends Specification implements DomainUnitTest<Learner> {
         exception.message == "Arguments cant be null or empty"
     }
 
-    void "learner can create deck when decks amount is less than max allowed per level"() {
+    void "learner can create deck when deck amount is less than max allowed per level"() {
         given:"decks amount is less than max allowed per level"
         Learner learner = new Learner("Juan")
 
@@ -36,8 +36,8 @@ class LearnerSpec extends Specification implements DomainUnitTest<Learner> {
 
     void "learner can create a card when having at least a deck created"() {
         given:'''decks amount is at least one, 
-        cards amount is less than max allowed per level, 
-        learner needs only a card to get to intermediate level'''
+            cards amount is less than max allowed per level, 
+            learner needs only a card to get to intermediate level'''
         Learner learner = new Learner("Rober")
         Deck deck = learner.createDeck("Mazo1")
 
@@ -69,7 +69,8 @@ class LearnerSpec extends Specification implements DomainUnitTest<Learner> {
     }
 
     void "learner changes card difficulty and impacts card sliding"() {
-        given:"deck amount is one and card amount is two, having one card with difficulty easy"
+        given:'''deck amount is one and card amount is two,
+            having one card with difficulty easy'''
         Learner learner = new Learner("Teresa")
         learner.setLevel(Level.INTERMEDIATE)
 
